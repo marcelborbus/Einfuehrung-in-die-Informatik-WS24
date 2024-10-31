@@ -4,7 +4,7 @@ class Permutationen {
   }
 
   public static void generate(String[] A, int[] selected) {
-    // wenn wir jeden index einmal verwendet haben ist die permutation komplett
+    // wenn wir jeden index einmal verwendet, haben ist die permutation komplett
     if (selected.length == A.length) {
       for (int i = 0; i < selected.length; i++) {
         System.out.print(A[selected[i]]);
@@ -20,7 +20,10 @@ class Permutationen {
       // wenn der aktuelle index schon ausgewählt ist, überspringe
       boolean skip = false;
       for (int j = 0; j < selected.length; j++) {
-        if (i == selected[j]) skip = true;
+        if (i == selected[j]) {
+          skip = true;
+          break;
+        }
       }
 
       if (skip) continue;

@@ -3,8 +3,8 @@ public class Statistics {
     float sum = 0;
     float variance = 0;
 
-    /* Alle Zahlen des Arrays addieren und anschließend durch die
-    die Anzahl der Werte teilen um den Mittelwert zu berechnen */
+    /* Alle Zahlen des Arrays addieren und anschließend durch
+    die Anzahl der Werte teilen, um den Mittelwert zu berechnen */
     for (int i = 0; i < n; i++) sum += x[i];
     float mean = sum / n;
 
@@ -31,8 +31,8 @@ public class Statistics {
     float sum = sum(x);
     float variance = 0;
 
-    /* Alle Zahlen des Arrays addieren und anschließend durch die
-    die Anzahl der Werte teilen um den Mittelwert zu berechnen */
+    /* Alle Zahlen des Arrays addieren und anschließend durch
+    die Anzahl der Werte teilen, um den Mittelwert zu berechnen */
     float mean = sum / n;
 
     /* Den Mittelwert vom i-ten Wert des Arrays subtrahieren und

@@ -10,3 +10,4 @@ dataSources.local.xml
 # Custom ignored files
 out/
 *.class
+*.iml

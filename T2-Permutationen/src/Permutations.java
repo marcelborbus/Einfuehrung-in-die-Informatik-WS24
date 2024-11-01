@@ -1,5 +1,10 @@
-class Permutationen {
+class Permutations {
   public static void main(String[] args) {
+    if (args.length == 0) {
+      System.out.println("Usage: java Permutations <a> <b> ...");
+      return;
+    }
+
     generate(args, new int[]{});
   }
 

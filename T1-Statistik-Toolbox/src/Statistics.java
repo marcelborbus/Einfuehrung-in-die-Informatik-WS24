@@ -1,11 +1,10 @@
 public class Statistics {
   public static float variance(int[] x, int n) {
-    float sum = 0;
+    float sum = sum(x);
     float variance = 0;
 
     /* Alle Zahlen des Arrays addieren und anschließend durch
     die Anzahl der Werte teilen, um den Mittelwert zu berechnen */
-    for (int i = 0; i < n; i++) sum += x[i];
     float mean = sum / n;
 
     /* Den Mittelwert vom i-ten Wert des Arrays subtrahieren und
@@ -26,20 +25,8 @@ public class Statistics {
     return sum;
   }
 
-  public static float standardDeviation(int[] x, int n) {
-
-    float sum = sum(x);
-    float variance = 0;
-
-    /* Alle Zahlen des Arrays addieren und anschließend durch
-    die Anzahl der Werte teilen, um den Mittelwert zu berechnen */
-    float mean = sum / n;
-
-    /* Den Mittelwert vom i-ten Wert des Arrays subtrahieren und
-    das Ergebnis quadrieren. Summe der Quadrate bilden und anschließend
-    durch die Anzahl der Werte teilen. */
-    for (int i = 0; i < n; i++) variance += ((x[i] - mean) * (x[i] - mean));
-    variance /= n;
+  public static float standardDeviation(int[] x) {
+    float variance = variance(x, x.length);
 
     // Quadratwurzel der Varianz ergibt Standardabweichung
     float stddev = variance;
@@ -56,6 +43,7 @@ public class Statistics {
     // wenn es keinen Input gibt, print Error
     if (args.length == 0) {
       System.out.println(invalidArgsMsg);
+      return;
     }
 
     int[] data = new int[args.length];
@@ -66,6 +54,7 @@ public class Statistics {
         data[i] = Integer.parseInt(args[i]);
       } catch (NumberFormatException e) {
         System.out.println(invalidArgsMsg);
+        return;
       }
     }
 
@@ -96,17 +85,16 @@ public class Statistics {
 
     float mean = (float) sum(data) / data.length; // muss ergänzt werden
     int sum = sum(data); // muss ergänzt werden
-    float standardDeviation = standardDeviation(data, data.length); // Standardabweichung
+    float standardDeviation = standardDeviation(data); // Standardabweichung
     float variance = variance(data, data.length); // Varianz
-
-    System.out.println("Mittelwert: " + mean);
-    System.out.println("Summe: " + sum);
 
     // Output
 
-    System.out.println("Standardabweichung:" + standardDeviation);
-    System.out.println("Varianz:" + variance);
-    System.out.println("Histogram:");
+    System.out.println("Mittelwert: " + mean);
+    System.out.println("Summe: " + sum);
+    System.out.println("Standardabweichung: " + standardDeviation);
+    System.out.println("Varianz: " + variance);
+    System.out.println("Histogram: ");
 
     for (int i = 0; i < uniqueCount; i++) {
       System.out.print(dataSet[i][0] + ": ");

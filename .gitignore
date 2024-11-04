@@ -29,3 +29,6 @@ bin/
 .DS_Store
 
 *.class
+
+# ignoriere non-tutorium Aufgaben
+/A[0-9]*/

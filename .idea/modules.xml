@@ -5,6 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/A3/A3.iml" filepath="$PROJECT_DIR$/A3/A3.iml" />
       <module fileurl="file://$PROJECT_DIR$/T1/T1.iml" filepath="$PROJECT_DIR$/T1/T1.iml" />
       <module fileurl="file://$PROJECT_DIR$/T2-Permutationen/T2-Permutationen.iml" filepath="$PROJECT_DIR$/T2-Permutationen/T2-Permutationen.iml" />
+      <module fileurl="file://$PROJECT_DIR$/T4-Sudoku/T4-Sudoku.iml" filepath="$PROJECT_DIR$/T4-Sudoku/T4-Sudoku.iml" />
       <module fileurl="file://$PROJECT_DIR$/Tutorium.iml" filepath="$PROJECT_DIR$/Tutorium.iml" />
     </modules>
   </component>

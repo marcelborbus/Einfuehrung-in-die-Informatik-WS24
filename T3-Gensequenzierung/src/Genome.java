@@ -3,27 +3,31 @@ import java.util.Scanner;
 
 public class Genome {
 
+  public static int count = 0;
+
   // printe Gen von Start bis Ende
   public static void ausgabe(String s, int begin, int end) {
-    System.out.println("Start bei " + begin + " tag Ende bei " + end);
+    System.out.println("Nr " + count + ": Start bei " + begin + " tag Ende bei " + end);
 
     for (int i = begin; i <= end; i++) {
       System.out.print(s.charAt(i));
     }
+
+    count++;
 
     System.out.println();
   }
 
   // Finde das Startkodon
   public static void findStart(String genome) {
-    for (int i = 0; i < genome.length() - 2; i++) {
+    for (int i = 0; i < genome.length() - 2; i += 3) { // oder +=1?
       if (genome.charAt(i) == 'a') { // Start mit ATG
         if (genome.charAt(i + 1) == 't') {
           if (genome.charAt(i + 2) == 'g') {
             int begin = i;
-            int end = findEnd(genome, i); // suche weiter, wo das letzte Gen aufhört
+            int end = findEnd(genome, begin); // suche weiter, wo das letzte Gen aufhört
             ausgabe(genome, begin, end);
-            i = end;
+            i = end - (end % 3) + 3;
           }
         }
       }
@@ -68,7 +72,7 @@ public class Genome {
     String genome;
 
     try {
-      File ecoli = new File(args[0]);
+      File ecoli = new File(args[0]); // "T3-Gensequenzierung/ecoli.txt"
       Scanner sc = new Scanner(ecoli);
       genome = sc.useDelimiter("\\Z").next();
       sc.close();

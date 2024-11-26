@@ -1,37 +1,38 @@
 import java.util.Arrays;
 
 public class SeaLevelRise {
-
-  public static String heightProfile(String water, int anstieg){
-    if (!isValidLand(water)) return "Error: Invalid land supplied";
+  public static String heightProfile(String water, int anstieg) {
+    if (!isValidLand(water))
+      return "Error: Invalid land supplied";
 
     String output = "";
     char temp;
 
-    for (int i = 0; i < water.length(); i++){
+    for (int i = 0; i < water.length(); i++) {
       temp = (char) (water.charAt(i) - anstieg);
 
-      if (temp <= '0'){
+      if (temp <= '0') {
         output += '0';
-      } else if (temp <= '9'){
+      } else if (temp <= '9') {
         output += temp;
       }
     }
     return output;
   }
 
-
   /**
-   * @param water z.B. 001222234322222222234544322211100000121
+   * @param water    z.B. 001222234322222222234544322211100000121
    * @param seaLevel höhe des Grundwassers
-   * @return (water - seaLevel) z.B. 000000012100000000012322100000000000000 für seaLevel 2
+   * @return (water - seaLevel) z.B. 000000012100000000012322100000000000000 für
+   *         seaLevel 2
    */
-  public static String groundwater(String water, int seaLevel){
-    if (!isValidLand(water)) return "Error: Invalid land supplied";
+  public static String groundwater(String water, int seaLevel) {
+    if (!isValidLand(water))
+      return "Error: Invalid land supplied";
 
     String result = "";
 
-    for (char digitChar : water.toCharArray()){
+    for (char digitChar : water.toCharArray()) {
       int digit = Character.getNumericValue(digitChar);
 
       int adjustedWater = digit - seaLevel;
@@ -39,20 +40,24 @@ public class SeaLevelRise {
       if (adjustedWater < 0) {
         adjustedWater = 0;
       }
-      result +=  adjustedWater;
+      result += adjustedWater;
     }
 
     return result;
   }
 
   /**
-   * Prüft, ob {@code land} aus gültigen Zeichen besteht: {@code '9' >= land[i] >= '0'}
+   * Prüft, ob {@code land} aus gültigen Zeichen besteht:
+   * {@code '9' >= land[i] >= '0'}
+   * 
    * @param land
    */
   public static boolean isValidLand(String land) {
     for (char c : land.toCharArray()) {
-      if (c < '0') return false;
-      if (c > '9') return false;
+      if (c < '0')
+        return false;
+      if (c > '9')
+        return false;
     }
 
     return true;
@@ -103,14 +108,14 @@ public class SeaLevelRise {
 
         if (startIndex != -1) {
           endIndex = i - 1;
-          splits[arrIndex++] = new int[]{startIndex, endIndex};
+          splits[arrIndex++] = new int[] { startIndex, endIndex };
           startIndex = -1;
         }
       }
 
       if (i == s.length() - 1 && s.charAt(i) != '0') {
         endIndex = i;
-        splits[arrIndex++] = new int[]{startIndex, endIndex};
+        splits[arrIndex++] = new int[] { startIndex, endIndex };
       }
     }
 
@@ -128,49 +133,44 @@ public class SeaLevelRise {
   }
 
   public static boolean isWater(String land, int index) {
-    if (index < 0) return false;
-    if (index >= land.length()) return false;
-    if (land.charAt(index) != '0') return false;
+    if (index < 0)
+      return false;
+    if (index >= land.length())
+      return false;
+    if (land.charAt(index) != '0')
+      return false;
     return true;
   }
 
-
   /**
-   * <p>{@code seaLevel} steigt von allen {@code 0}en aus an und überflutet {@code land}.</p>
-   * <p>Höhe {@code n} wird bei {@code seaLevel} {@code n} überflutet.</p>
+   * <p>
+   * {@code seaLevel} steigt von allen {@code 0}en aus an und überflutet
+   * {@code land}.
+   * </p>
+   * <p>
+   * Höhe {@code n} wird bei {@code seaLevel} {@code n} überflutet.
+   * </p>
    *
    * @param land z.B. {@code 001222234322222222234544322211100000121}
    * @return Zeitpunkt der Überschwemmung für jedes {@code land}-Feld z.B.
-   * {@code 001222234444444444444544322211100000122}
+   *         {@code 001222234444444444444544322211100000122}
    */
   public static String seawater(String land) {
     // TODO check if no water present at all
 
-    if (!isValidLand(land)) return "Error: Invalid land supplied";
-
-//        int maxHeight = 0;
-//
-//        for (int i = 0; i < land.length(); i++) {
-//            int height = land.charAt(i) - '0'; // char -> int
-//            if (height > maxHeight) maxHeight = height;
-//        }
+    if (!isValidLand(land))
+      return "Error: Invalid land supplied";
 
     String output = "";
 
     int[][] splits = splitOnWater(land);
 
     for (int i = 0; i < splits.length; i++) {
-//            for (int j = 0; j < maxHeight; j++) {
-//                // prüfe Überschwemmung von li und re für jeden Split
-//
-//                checkFlooding();
-//            }
-
 
       String tile = substr(land, splits[i][0], splits[i][1]);
 
-      System.out.print(Arrays.toString(splits[i]) + " ");
-      System.out.print(tile + "\n");
+      // System.out.print(Arrays.toString(splits[i]) + " ");
+      // System.out.print(tile + "\n");
 
       int startIndex = splits[i][0];
       int endIndex = splits[i][1];
@@ -181,8 +181,10 @@ public class SeaLevelRise {
       tile = checkFlooding(tile, checkLeft, checkRight);
 
       for (int j = output.length(); j <= endIndex; j++) {
-        if (j < startIndex) output += "0";
-        else output += tile.charAt(j - startIndex);
+        if (j < startIndex)
+          output += "0";
+        else
+          output += tile.charAt(j - startIndex);
       }
     }
 
@@ -193,9 +195,7 @@ public class SeaLevelRise {
     return output;
   }
 
-
   public static String checkFlooding(String land, boolean checkLeft, boolean checkRight) {
-
 
     // check only left
 
@@ -217,9 +217,7 @@ public class SeaLevelRise {
       return substringleft;
     }
 
-
     // check only right
-
 
     if ((!checkLeft) && (checkRight)) {
 
@@ -239,7 +237,6 @@ public class SeaLevelRise {
       return substringright;
     }
 
-
     if ((checkLeft) && (checkRight)) {
       String substringleft = "";
       String substringright = "";
@@ -251,7 +248,6 @@ public class SeaLevelRise {
       boolean increaseheightleft = false;
       boolean increaseheightright = false;
 
-
       while ((indexright - indexleft) >= 0) {
 
         if (currentheight + '0' < land.charAt(indexleft)) {
@@ -262,7 +258,6 @@ public class SeaLevelRise {
             indexleft++;
           }
         }
-
 
         if (currentheight + '0' < land.charAt(indexright)) {
           increaseheightright = true;
@@ -284,17 +279,33 @@ public class SeaLevelRise {
     return null;
   }
 
-
-
-
-
   public static void main(String[] args) {
+    if (args.length < 2) {
+      System.err.println("Usage: java SeaLevelRise <mode> <landprofile=[01]*>");
+      return;
+    }
 
-    String land = "001222234322222222234544322211100000121";
-    int anstieg = 3;
+    String mode = args[0];
+    String land = "";
 
-    System.out.println("Höhenprofil nach Anstieg um "+anstieg+" :" + heightProfile(land, anstieg));
-    System.out.println(groundwater(land, 2));
-    System.out.println(seawater(land));
+    for (int i = 1; i < args.length; i++) {
+      land += args[i];
+    }
+
+    // String land = "001222234322222222234544322211100000121";
+    // int anstieg = 3;
+
+    // System.out.println("Höhenprofil nach Anstieg um " + anstieg + " :" +
+    // heightProfile(land, anstieg));
+    if (mode.equals("groundwater")) {
+      for (int i = 0; i < 10; i++) {
+        System.out.println("Höhenprofil bei NN = " + i);
+        System.out.println(groundwater(land, i));
+      }
+    } else if (mode.equals("seawater")) {
+      System.out.println(seawater(land));
+    } else {
+      System.err.println("Mode not supported");
+    }
   }
 }

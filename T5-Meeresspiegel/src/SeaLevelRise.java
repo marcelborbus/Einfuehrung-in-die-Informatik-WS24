@@ -226,7 +226,6 @@ public class SeaLevelRise {
       int currentindex = land.length() - 1;
 
       while (currentindex >= 0) {
-
         if (currentheight + 48 < land.charAt(currentindex)) {
           currentheight += 1;
         } else if ((currentheight + 48) >= land.charAt(currentindex)) {
@@ -296,7 +295,6 @@ public class SeaLevelRise {
     // int anstieg = 3;
 
     // System.out.println("Höhenprofil nach Anstieg um " + anstieg + " :" +
-    // heightProfile(land, anstieg));
     if (mode.equals("groundwater")) {
       for (int i = 0; i < 10; i++) {
         System.out.println("Höhenprofil bei NN = " + i);

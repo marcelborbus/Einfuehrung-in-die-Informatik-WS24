@@ -6,6 +6,7 @@
       <sourceFolder url="file://$MODULE_DIR$/T1-Statistik-Toolbox/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/T3-Gensequenzierung/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/T6-Ponysay/src" isTestSource="false" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

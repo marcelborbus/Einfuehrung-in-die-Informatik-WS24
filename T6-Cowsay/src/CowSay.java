@@ -5,18 +5,17 @@ public class Cowsay {
 
   // Speichere die Zeilen im Array
   public static void nextRow(String Row) {
-
     String[] temp = new String[messageArray.length + 1];
     for (int i = 0; i < messageArray.length; i++) {
       temp[i] = messageArray[i];
     }
+
     temp[temp.length - 1] = Row;
     messageArray = temp;
   }
 
   // Printe die einzelnen Zeilen mit dem Rand
   public static void printMessage() {
-
     for (int i = 0; i < messageArray.length; i++) {
       if (i == 0) {
         System.out.println("/ " + messageArray[i] + " \\");
@@ -29,7 +28,6 @@ public class Cowsay {
   }
 
   public static void printTextbox(int width, String message) {
-
     // Die Message wird in einzelne Wörter zerlegt und
     // diese als Array gespeichert
     String[] words = message.split(" ");
@@ -47,30 +45,25 @@ public class Cowsay {
     }
 
     // Hilfsvariablen für die Schleife
-    String Row = "";
+    String row = "";
     String rest = "";
     int i = 0;
 
     while (i < words.length) {
-
       //Prüfe ob ein Rest existiert
-      if (rest.length() > 0) {
-
+      if (!rest.isEmpty()) {
         //Falls der Rest in die Zeile passt füge ihn hinzu und gehe zum nächsten Wort
         if ((rest.length() <= width - 2)) {
-          Row += rest;
+          row += rest;
           rest = "";
           i++;
-
           // Falls der Rest zu lang ist, splitte ihn, speicher den Rest,
           // printe die volle Zeile, leere sie danach und gehe zurück an den Anfang der Schleife
         } else if (rest.length() > width - 2) {
-          Row = rest.substring(0, width - 2);
+          row = rest.substring(0, width - 2);
           rest = rest.substring(width - 2);
-
-          nextRow(Row);
-
-          Row = "";
+          nextRow(row);
+          row = "";
           continue;
         }
       }
@@ -82,53 +75,55 @@ public class Cowsay {
 
       // Prüfe ob das Wort zu lang für eine Zeile ist
       if (words[i].length() > width - 2) {
-
         // Wenn schon etwas in der Zeile steht fülle sie auf und speicher sie
-        if (Row.length() > 0) {
-          while (Row.length() < width - 2) {
-            Row += " ";
+        if (row.length() > 0) {
+          while (row.length() < width - 2) {
+            row += " ";
           }
-          nextRow(Row);
-          Row = "";
-        }
 
+          nextRow(row);
+          row = "";
+        }
         // Wenn noch nichts in der Zeile steht speicher den ersten Teil
         // des Wortes in der Zeile und speicher den Rest
         else {
-          Row = words[i].substring(0, width - 2);
-          nextRow(Row);
-          Row = "";
+          row = words[i].substring(0, width - 2);
+          nextRow(row);
+          row = "";
           rest = words[i].substring(width - 2);
         }
+
         continue;
       }
 
       // Wenn die Zeile + das nächste Wort micht die Textboxbreite überschreiten
       // wird das nächste Wort der Zeile hinzugefügt. Falls nicht wird die Zeie
       // gefüllt und gespeichert
-      if ((Row.length() + words[i].length()) <= width - 2) {
-        if (Row.equals("")) {
-          Row += words[i];
+      if ((row.length() + words[i].length()) <= width - 2) {
+        if (row.equals("")) {
+          row += words[i];
         } else {
-          Row += " " + words[i];
+          row += " " + words[i];
         }
+
         i++;
       } else {
-        while (Row.length() < width - 2) {
-          Row += " ";
+        while (row.length() < width - 2) {
+          row += " ";
         }
-        nextRow(Row);
-        Row = "";
+
+        nextRow(row);
+        row = "";
       }
     }
 
     // Auffüllen damit die Breite passt
-    while (Row.length() < width - 2) {
-      Row += " ";
+    while (row.length() < width - 2) {
+      row += " ";
     }
-    nextRow(Row);
 
-    // Printe die Message
+    nextRow(row);
+
     System.out.println(topborder);
     printMessage();
     System.out.println(bottomborder);
@@ -143,12 +138,10 @@ public class Cowsay {
   public static void printCow(String eyes, boolean tongue, String offset) {
     // Normalerweise wird keine Zunge gesprintet
     String tongue2 = " ";
-
     // Wenn tongue == true, wird die Zunge gesprintet
     if (tongue) {
       tongue2 = "U";
     }
-
     // Printe die Kuh
     System.out.printf("%s    \\   ^__^\n" +
         "%s     \\  (%s)\\_______\n" +
@@ -158,7 +151,6 @@ public class Cowsay {
   }
 
   public static void main(String[] args) {
-
     //Standardvariablen
     String eyes = "oo";
     String message = "Du hast keine Nachricht als Kommandozeilenparameter angegeben";
@@ -227,6 +219,7 @@ public class Cowsay {
                 System.err.println("textboxwidth muss eine Zahl sein!");
                 return;
               }
+
               break;
           }
         }
@@ -250,7 +243,6 @@ public class Cowsay {
 }
 
 class Pony2 {
-
   public final static String Blinkie = "    \\\n"
       + "    \u001B[38;5;102m▄▄\u001B[48;5;102;38;5;252m▄▄\u001B[38;5;102m█\u001B[38;5;252m▄▄\u001B[38;5;102m█\u001B[38;5;252m▄\u001B[49;38;5;102m▄\u001B[48;5;60;38;5;60m█\u001B[38;5;109m▄\u001B[49;38;5;60m▄\u001B[39m\n"
       + "  \u001B[38;5;102m▄\u001B[48;5;102;38;5;252m▄\u001B[48;5;252;38;5;102m▄\u001B[38;5;252m██\u001B[48;5;102;38;5;102m█\u001B[48;5;252;38;5;252m██\u001B[48;5;102;38;5;102m█\u001B[48;5;252;38;5;252m██\u001B[48;5;60;38;5;60m█\u001B[48;5;109;38;5;109m█\u001B[38;5;103m▄\u001B[48;5;60;38;5;109m▄\u001B[49;38;5;60m▄\u001B[39m\n"

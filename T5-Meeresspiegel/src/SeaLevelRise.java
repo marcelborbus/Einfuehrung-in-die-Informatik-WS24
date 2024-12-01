@@ -136,8 +136,6 @@ public class SeaLevelRise {
    *         {@code 001222234444444444444544322211100000122}
    */
   public static String seawater(String land) {
-    // TODO check if no water present at all
-
     if (!isValidLand(land))
       return "Error: Invalid land supplied";
 

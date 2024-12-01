@@ -1,45 +1,27 @@
 import java.util.Arrays;
 
 public class SeaLevelRise {
-  public static String heightProfile(String water, int anstieg) {
-    if (!isValidLand(water))
-      return "Error: Invalid land supplied";
-
-    String output = "";
-    char temp;
-
-    for (int i = 0; i < water.length(); i++) {
-      temp = (char) (water.charAt(i) - anstieg);
-
-      if (temp <= '0') {
-        output += '0';
-      } else if (temp <= '9') {
-        output += temp;
-      }
-    }
-    return output;
-  }
-
   /**
-   * @param water    z.B. 001222234322222222234544322211100000121
+   * @param land z.B. 001222234322222222234544322211100000121
    * @param seaLevel höhe des Grundwassers
    * @return (water - seaLevel) z.B. 000000012100000000012322100000000000000 für
    *         seaLevel 2
    */
-  public static String groundwater(String water, int seaLevel) {
-    if (!isValidLand(water))
+  public static String groundwater(String land, int seaLevel) {
+    if (!isValidLand(land))
       return "Error: Invalid land supplied";
 
     String result = "";
 
-    for (char digitChar : water.toCharArray()) {
-      int digit = Character.getNumericValue(digitChar);
+    for (char digitChar : land.toCharArray()) {
+      int digit = digitChar - '0';
 
       int adjustedWater = digit - seaLevel;
 
       if (adjustedWater < 0) {
         adjustedWater = 0;
       }
+
       result += adjustedWater;
     }
 
@@ -133,9 +115,7 @@ public class SeaLevelRise {
   }
 
   public static boolean isWater(String land, int index) {
-    if (index < 0)
-      return false;
-    if (index >= land.length())
+    if (index < 0 || index >= land.length()) // edgecases
       return false;
     if (land.charAt(index) != '0')
       return false;
@@ -168,9 +148,6 @@ public class SeaLevelRise {
     for (int i = 0; i < splits.length; i++) {
 
       String tile = substr(land, splits[i][0], splits[i][1]);
-
-      // System.out.print(Arrays.toString(splits[i]) + " ");
-      // System.out.print(tile + "\n");
 
       int startIndex = splits[i][0];
       int endIndex = splits[i][1];
@@ -207,10 +184,10 @@ public class SeaLevelRise {
 
       while (currentindex < land.length()) {
 
-        if (currentheight + 48 < land.charAt(currentindex)) {
+        if (currentheight + '0' < land.charAt(currentindex)) {
           currentheight += 1;
-        } else if ((currentheight + 48) >= land.charAt(currentindex)) {
-          substringleft += (char) (currentheight + 48);
+        } else if ((currentheight + '0') >= land.charAt(currentindex)) {
+          substringleft += (char) (currentheight + '0');
           currentindex++;
         }
       }
@@ -226,10 +203,10 @@ public class SeaLevelRise {
       int currentindex = land.length() - 1;
 
       while (currentindex >= 0) {
-        if (currentheight + 48 < land.charAt(currentindex)) {
+        if (currentheight + '0' < land.charAt(currentindex)) {
           currentheight += 1;
-        } else if ((currentheight + 48) >= land.charAt(currentindex)) {
-          substringright = ((char) (currentheight + 48)) + substringright;
+        } else if ((currentheight + '0') >= land.charAt(currentindex)) {
+          substringright = ((char) (currentheight + '0')) + substringright;
           currentindex--;
         }
       }
@@ -278,32 +255,88 @@ public class SeaLevelRise {
     return null;
   }
 
+  public static int getMaxHeight(String land) {
+    int[] landInt = landStrToInt(land);
+
+    int max = landInt[0];
+
+    for (int i = 1; i < landInt.length; i++) {
+      if (landInt[i] > max) max = landInt[i];
+    }
+
+    return max;
+  }
+
+  public static int[] landStrToInt(String land) {
+    int[] landInt = new int[land.length()];
+
+    for (int i = 0; i < land.length(); i++) {
+      landInt[i] = land.charAt(i) - '0';
+    }
+
+    return landInt;
+  }
+
+  public static void printLand(String profile) {
+    int[] heightProfile = landStrToInt(profile);
+
+    int maxHeight = heightProfile[0];
+    for (int i = 0; i < heightProfile.length; i++) {
+      if (heightProfile[i] > maxHeight)
+        maxHeight = heightProfile[i];
+    }
+
+    for (int i = 0; i < maxHeight; i++) {
+      for (int j = 0; j < heightProfile.length; j++) {
+        if (heightProfile[j] >= maxHeight - i)
+          System.out.print('*');
+        else
+          System.out.print(" ");
+      }
+
+      System.out.println();
+    }
+  }
+
   public static void main(String[] args) {
     if (args.length < 2) {
-      System.err.println("Usage: java SeaLevelRise <mode> <landprofile=[01]*>");
+      System.err.println("Insufficient arguments supplied.");
+      System.err.println("Usage: java SeaLevelRise <groundwater|seawater> <landprofile=[0-9]*>");
       return;
     }
 
     String mode = args[0];
+    if (!mode.equals("groundwater") && !mode.equals("seawater")) {
+      System.err.println("Invalid mode supplied.");
+      System.err.println("Usage: java SeaLevelRise <groundwater|seawater> <landprofile=[0-9]*>");
+      return;
+    }
+
     String land = "";
 
     for (int i = 1; i < args.length; i++) {
       land += args[i];
     }
 
-    // String land = "001222234322222222234544322211100000121";
-    // int anstieg = 3;
+    if (!isValidLand(land)) {
+      System.err.println("Invalid landprofile supplied.");
+      System.err.println("Usage: java SeaLevelRise <groundwater|seawater> <landprofile=[0-9]*>");
+      return;
+    }
 
-    // System.out.println("Höhenprofil nach Anstieg um " + anstieg + " :" +
     if (mode.equals("groundwater")) {
-      for (int i = 0; i < 10; i++) {
-        System.out.println("Höhenprofil bei NN = " + i);
-        System.out.println(groundwater(land, i));
+      for (int i = 0; i < getMaxHeight(land); i++) {
+        System.out.println("Hoehenprofil bei Anstieg = " + i);
+        System.out.println();
+        String result = groundwater(land, i);
+        printLand(result);
+        System.out.println(result);
+        System.out.println();
       }
-    } else if (mode.equals("seawater")) {
+    }
+
+    if (mode.equals("seawater")) {
       System.out.println(seawater(land));
-    } else {
-      System.err.println("Mode not supported");
     }
   }
 }

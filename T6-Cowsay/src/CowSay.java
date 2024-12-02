@@ -1,4 +1,4 @@
-public class Cowsay {
+public class CowSay {
 
   // Array in dem die einzelnen Zeilen der Message gespeichert werden
   public static String[] messageArray = new String[0];
@@ -50,15 +50,16 @@ public class Cowsay {
     int i = 0;
 
     while (i < words.length) {
-      //Prüfe ob ein Rest existiert
+      // Prüfe ob ein Rest existiert
       if (!rest.isEmpty()) {
-        //Falls der Rest in die Zeile passt füge ihn hinzu und gehe zum nächsten Wort
+        // Falls der Rest in die Zeile passt füge ihn hinzu und gehe zum nächsten Wort
         if ((rest.length() <= width - 2)) {
           row += rest;
           rest = "";
           i++;
           // Falls der Rest zu lang ist, splitte ihn, speicher den Rest,
-          // printe die volle Zeile, leere sie danach und gehe zurück an den Anfang der Schleife
+          // printe die volle Zeile, leere sie danach und gehe zurück an den Anfang der
+          // Schleife
         } else if (rest.length() > width - 2) {
           row = rest.substring(0, width - 2);
           rest = rest.substring(width - 2);
@@ -131,7 +132,7 @@ public class Cowsay {
 
   public static void printPony() {
     int rng = (int) (Math.random() * 3);
-    String[] ponies = {Pony2.Applebloom, Pony2.Blinkie, Pony2.Pinkie};
+    String[] ponies = { Pony2.Applebloom, Pony2.Blinkie, Pony2.Pinkie };
     System.out.println(ponies[rng]);
   }
 
@@ -151,7 +152,7 @@ public class Cowsay {
   }
 
   public static void main(String[] args) {
-    //Standardvariablen
+    // Standardvariablen
     String eyes = "oo";
     String message = "Du hast keine Nachricht als Kommandozeilenparameter angegeben";
     boolean tongue = false;
@@ -232,7 +233,7 @@ public class Cowsay {
       offset += " ";
     }
 
-    //Rufe die Methoden auf um Textbox und Kuh zu printen
+    // Rufe die Methoden auf um Textbox und Kuh zu printen
     printTextbox(textboxwidth, message);
     if (pony) {
       printPony();

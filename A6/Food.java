@@ -54,17 +54,17 @@ public class Food implements Comparable<Food> {
     }
 
     public static void main(String[] args) {
-        final Food apple = new Food(Food.TYPE.Apple, 300);
-        final Food pear = new Food(Food.TYPE.Pear, 300);
+        Food apple = new Food(Food.TYPE.Apple, 300);
+        Food pear = new Food(Food.TYPE.Pear, 300);
         System.out.println(apple);
         System.out.println(pear);
 
-        final Food[] plate = { apple, pear };
+        Food[] plate = { apple, pear };
         System.out.println(Arrays.toString(plate));
         Arrays.sort(plate);
         System.out.println(Arrays.toString(plate));
 
-        final Food[] obstKorb = Food.createSortedRandomList(10);
+        Food[] obstKorb = Food.createSortedRandomList(10);
         System.out.println(Arrays.toString(obstKorb));
         Arrays.sort(obstKorb);
         System.out.println(Arrays.toString(obstKorb));

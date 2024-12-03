@@ -1,8 +1,6 @@
-import java.util.Arrays;
-
 public class SeaLevelRise {
   /**
-   * @param land z.B. 001222234322222222234544322211100000121
+   * @param land     z.B. 001222234322222222234544322211100000121
    * @param seaLevel höhe des Grundwassers
    * @return (water - seaLevel) z.B. 000000012100000000012322100000000000000 für
    *         seaLevel 2
@@ -259,7 +257,8 @@ public class SeaLevelRise {
     int max = landInt[0];
 
     for (int i = 1; i < landInt.length; i++) {
-      if (landInt[i] > max) max = landInt[i];
+      if (landInt[i] > max)
+        max = landInt[i];
     }
 
     return max;

@@ -25,9 +25,7 @@ public class PackingStation {
 
                     System.out.println(counter++);
                 }
-
             }
-
         }
 
         int i = res[0];

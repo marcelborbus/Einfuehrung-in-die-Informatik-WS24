@@ -71,6 +71,5 @@ public class Quaternion {
 
         q1.divide(q4);
         System.out.println(q1);
-
     }
 }

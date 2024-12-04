@@ -1,20 +1,20 @@
 import java.util.Arrays;
 
 public class Food implements Comparable<Food> {
-    private TYPE type;
+    private Type type;
     private int calories;
 
-    private static enum TYPE {
+    private static enum Type {
         Apple, Pear, Cookie, Grape
     };
 
-    public Food(TYPE type, int calories) {
+    public Food(Type type, int calories) {
         this.type = type;
         this.calories = calories;
     }
 
     public Food(String type, int calories) {
-        this.type = Food.TYPE.valueOf(type);
+        this.type = Food.Type.valueOf(type);
         this.calories = calories;
     }
 
@@ -22,6 +22,7 @@ public class Food implements Comparable<Food> {
         return this.getType() + " " + this.getCalories() + " kcal";
     }
 
+    @Override
     public int compareTo(Food o) {
         int a = this.getType().length() * this.getCalories();
         int b = o.getType().length() * o.getCalories();
@@ -44,8 +45,8 @@ public class Food implements Comparable<Food> {
 
         for (int i = 0; i < n; i++) {
             int calories = (int) (Math.random() * 1_000);
-            int type = (int) (Math.random() * Food.TYPE.values().length);
-            arr[i] = new Food(Food.TYPE.values()[type], calories);
+            int type = (int) (Math.random() * Food.Type.values().length);
+            arr[i] = new Food(Food.Type.values()[type], calories);
         }
 
         Arrays.sort(arr);
@@ -54,8 +55,8 @@ public class Food implements Comparable<Food> {
     }
 
     public static void main(String[] args) {
-        Food apple = new Food(Food.TYPE.Apple, 300);
-        Food pear = new Food(Food.TYPE.Pear, 300);
+        Food apple = new Food(Food.Type.Apple, 300);
+        Food pear = new Food(Food.Type.Pear, 300);
         System.out.println(apple);
         System.out.println(pear);
 
@@ -64,9 +65,9 @@ public class Food implements Comparable<Food> {
         Arrays.sort(plate);
         System.out.println(Arrays.toString(plate));
 
-        Food[] obstKorb = Food.createSortedRandomList(10);
-        System.out.println(Arrays.toString(obstKorb));
-        Arrays.sort(obstKorb);
-        System.out.println(Arrays.toString(obstKorb));
+        Food[] obstkorb = Food.createSortedRandomList(10);
+        System.out.println(Arrays.toString(obstkorb));
+        Arrays.sort(obstkorb);
+        System.out.println(Arrays.toString(obstkorb));
     }
 }
